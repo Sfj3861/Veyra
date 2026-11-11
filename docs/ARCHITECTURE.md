@@ -10,7 +10,7 @@ The repository starts with an Android application shell using Kotlin and Jetpack
 - **UI:** Jetpack Compose screens and reusable components.
 - **Theme Engine:** user-editable design tokens, layouts, typography, icon packs and motion preferences.
 - **Customization system:** import/export of declarative theme packages and a visual layout editor.
-- **Browser integration:** Chromium-based content rendering and browser controls. This layer is not implemented yet.
+- **Browser integration:** browser-engine contract, tab/session coordinator and address resolver are implemented; the native Chromium provider and renderer are not implemented yet.
 - **Privacy and protection:** configurable content filtering, site permissions and transparent per-site controls.
 - **Extension host:** isolated extension APIs with explicit permissions. Native extensions must never receive unrestricted access by default.
 
@@ -47,3 +47,14 @@ The first working Theme Engine layer now includes:
 - A settings screen reachable from the home screen's Settings item, with live preset switching, editable primary/secondary/background HEX colors, opacity control and reset.
 
 This is an initial editor, not the final visual layout editor. Custom image/video backgrounds, per-component positioning, typography packs, drag-and-drop editing, theme import/export and community publishing remain future milestones. HEX input currently accepts six-digit RGB values in the editor.
+
+
+## Browser session foundation
+
+The `browser` package now contains:
+- `BrowserEngineProvider` and `BrowserEngine` contracts for a native Chromium-backed implementation.
+- `BrowserSession` to own engine instances, tabs, selection, navigation commands and observer updates.
+- `BrowserTab` as the UI/session state model.
+- `UrlInputResolver` to distinguish web addresses from search queries and reject non-web schemes such as `javascript:`, `file:`, `content:` and `intent:`.
+
+No concrete engine provider is included yet. The session coordinator requires a real provider to be injected and intentionally does not create a WebView fallback.
