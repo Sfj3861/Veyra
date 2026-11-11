@@ -62,7 +62,6 @@ fun BrowserHome(onOpenThemeSettings: () -> Unit = {}) {
                 Brush.linearGradient(
                     colors = listOf(
                         VeyraColors.BackgroundTop,
-                        Color(0xFF17243C),
                         VeyraColors.BackgroundBottom
                     )
                 )
