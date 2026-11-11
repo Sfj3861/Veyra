@@ -3,35 +3,47 @@ package com.sfj3861.veyra.ui.theme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
+private val DefaultPalette = VeyraThemePresets.Glassmorphism.toPalette()
+private val LocalVeyraPalette = staticCompositionLocalOf { DefaultPalette }
+
+/** Theme colors consumed by the existing UI and future customizable components. */
 object VeyraColors {
-    val BackgroundTop = Color(0xFF101522)
-    val BackgroundBottom = Color(0xFF211A3D)
-    val SurfaceGlass = Color(0x1FFFFFFF)
-    val SurfaceGlassStrong = Color(0x24FFFFFF)
-    val GlassBorder = Color(0x33FFFFFF)
-    val Blue = Color(0xFF398BFF)
-    val Violet = Color(0xFF9565F5)
-    val TextPrimary = Color(0xFFF7F8FC)
-    val TextSecondary = Color(0xFFADB8CA)
+    val BackgroundTop: Color @Composable get() = LocalVeyraPalette.current.backgroundTop
+    val BackgroundBottom: Color @Composable get() = LocalVeyraPalette.current.backgroundBottom
+    val SurfaceGlass: Color @Composable get() = LocalVeyraPalette.current.surfaceGlass
+    val SurfaceGlassStrong: Color @Composable get() = LocalVeyraPalette.current.surfaceGlassStrong
+    val GlassBorder: Color @Composable get() = LocalVeyraPalette.current.glassBorder
+    val Blue: Color @Composable get() = LocalVeyraPalette.current.blue
+    val Violet: Color @Composable get() = LocalVeyraPalette.current.violet
+    val TextPrimary: Color @Composable get() = LocalVeyraPalette.current.textPrimary
+    val TextSecondary: Color @Composable get() = LocalVeyraPalette.current.textSecondary
 }
 
-private val VeyraDarkScheme = darkColorScheme(
-    primary = VeyraColors.Blue,
-    secondary = VeyraColors.Violet,
-    background = VeyraColors.BackgroundTop,
-    surface = Color(0xFF202B40),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onBackground = VeyraColors.TextPrimary,
-    onSurface = VeyraColors.TextPrimary
-)
-
 @Composable
-fun VeyraTheme(content: @Composable () -> Unit) {
-    MaterialTheme(
-        colorScheme = VeyraDarkScheme,
-        content = content
+fun VeyraTheme(
+    config: VeyraThemeConfig = VeyraThemePresets.Glassmorphism,
+    content: @Composable () -> Unit
+) {
+    val palette = config.toPalette()
+    val colorScheme = darkColorScheme(
+        primary = palette.blue,
+        secondary = palette.violet,
+        background = palette.backgroundTop,
+        surface = palette.surfaceGlassStrong,
+        onPrimary = Color.White,
+        onSecondary = Color.White,
+        onBackground = palette.textPrimary,
+        onSurface = palette.textPrimary
     )
+
+    CompositionLocalProvider(LocalVeyraPalette provides palette) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            content = content
+        )
+    }
 }
