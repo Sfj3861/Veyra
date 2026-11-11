@@ -35,7 +35,7 @@
 
 ## Not implemented yet
 
-- Chromium integration and real webpage navigation.
+- Chromium integration and real webpage navigation (engine contracts are present; native Chromium provider is not yet implemented).
 - Tab lifecycle and session restoration.
 - Ad/tracker filtering engine.
 - Theme editor, theme import/export and community Workshop.
@@ -68,3 +68,8 @@ The app now has a first usable theme editor accessible from **Ajustes**:
 This is an early foundation. Theme export/import, image and video backgrounds, per-component layout editing, typography controls, animation settings and community themes are not implemented yet.
 
 **Build status:** this update has not yet been compiled or tested on a physical Android device. The repository still needs a local Android Studio/Gradle validation pass.
+
+
+## Chromium integration status
+
+The repository now contains the browser-engine contract and address-input resolver, plus a technical decision record for the genuine Chromium integration route. **The Chromium engine itself is not yet embedded or operational.** The chosen route is a Veyra Chromium fork/native embedder, not a WebView substitution. See [docs/CHROMIUM_INTEGRATION.md](docs/CHROMIUM_INTEGRATION.md).
