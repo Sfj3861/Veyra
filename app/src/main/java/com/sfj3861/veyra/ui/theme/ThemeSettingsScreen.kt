@@ -26,6 +26,10 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -154,7 +158,10 @@ private fun PresetRow(
             modifier = Modifier.padding(14.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+            Row(
+                modifier = Modifier.weight(1f),
+                horizontalArrangement = Arrangement.spacedBy(5.dp)
+            ) {
                 listOf(config.backgroundTop, config.primary, config.secondary).forEach { hex ->
                     Surface(
                         modifier = Modifier
@@ -183,17 +190,19 @@ private fun HexField(
     value: String,
     onValueChange: (String) -> Unit
 ) {
+    var text by remember(value) { mutableStateOf(value) }
     OutlinedTextField(
-        value = value,
-        onValueChange = onValueChange,
+        value = text,
+        onValueChange = { newValue ->
+            text = newValue
+            val cleaned = newValue.trim().uppercase().removePrefix("#")
+            if (cleaned.matches(Regex("[0-9A-F]{6}"))) {
+                onValueChange("#$cleaned")
+            }
+        },
         modifier = Modifier.fillMaxWidth(),
         label = { Text(label) },
         singleLine = true,
         shape = RoundedCornerShape(14.dp)
     )
-}
-
-private fun normalizeHex(value: String): String {
-    val cleaned = value.trim().uppercase().removePrefix("#")
-    return if (cleaned.matches(Regex("[0-9A-F]{6}"))) "#$cleaned" else "#398BFF"
 }
