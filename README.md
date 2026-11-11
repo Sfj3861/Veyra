@@ -55,3 +55,16 @@ This is an early development project. Do not use it as a daily browser or for se
 ## Licensing
 
 The project license has not been selected yet. Chromium and third-party dependencies retain their own licenses; the project will document these before distributing builds.
+
+
+## Theme Engine milestone
+
+The app now has a first usable theme editor accessible from **Ajustes**:
+- Glassmorphism, Minimalista, Futurista and Material You presets.
+- Live HEX editing for primary, secondary and background colors.
+- Adjustable glass transparency.
+- Theme selection and custom values saved locally on the device.
+
+This is an early foundation. Theme export/import, image and video backgrounds, per-component layout editing, typography controls, animation settings and community themes are not implemented yet.
+
+**Build status:** this update has not yet been compiled or tested on a physical Android device. The repository still needs a local Android Studio/Gradle validation pass.
