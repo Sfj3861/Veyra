@@ -2,6 +2,7 @@ package com.sfj3861.veyra.ui.home
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -51,7 +52,7 @@ import androidx.compose.ui.unit.sp
 import com.sfj3861.veyra.ui.theme.VeyraColors
 
 @Composable
-fun BrowserHome() {
+fun BrowserHome(onOpenThemeSettings: () -> Unit = {}) {
     var address by remember { mutableStateOf("") }
 
     Box(
@@ -203,7 +204,7 @@ fun BrowserHome() {
                 Spacer(Modifier.height(22.dp))
             }
 
-            BottomNavigation()
+            BottomNavigation(onSettingsClick = onOpenThemeSettings)
             Spacer(Modifier.height(8.dp))
         }
     }
@@ -305,7 +306,7 @@ private fun GlassPanel(
 }
 
 @Composable
-private fun BottomNavigation() {
+private fun BottomNavigation(onSettingsClick: () -> Unit) {
     GlassPanel(modifier = Modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier
@@ -317,7 +318,7 @@ private fun BottomNavigation() {
             BottomItem(Icons.Default.Home, "Inicio", selected = true)
             BottomItem(Icons.Default.BookmarkBorder, "Guardados")
             BottomItem(Icons.Default.Tab, "Pestañas")
-            BottomItem(Icons.Default.Settings, "Ajustes")
+            BottomItem(Icons.Default.Settings, "Ajustes", onClick = onSettingsClick)
         }
     }
 }
@@ -326,11 +327,14 @@ private fun BottomNavigation() {
 private fun BottomItem(
     icon: androidx.compose.ui.graphics.vector.ImageVector,
     label: String,
-    selected: Boolean = false
+    selected: Boolean = false,
+    onClick: () -> Unit = {}
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(horizontal = 4.dp, vertical = 3.dp)
+        modifier = Modifier
+            .padding(horizontal = 4.dp, vertical = 3.dp)
+            .clickable(onClick = onClick)
     ) {
         Icon(
             icon,
