@@ -14,10 +14,11 @@ object VeyraThemeStore {
     fun load(context: Context): VeyraThemeConfig {
         val prefs = context.applicationContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
         val id = prefs.getString(KEY_THEME_ID, VeyraThemePresets.Glassmorphism.id)
-        val preset = VeyraThemePresets.byId(id)
-
-        // Custom field storage is added through saveCustom in the next editor milestone.
-        return preset
+        val custom = prefs.getString(KEY_CUSTOM_CONFIG, null)
+        if (id == "custom" && custom != null) {
+            decode("custom", custom)?.let { return it }
+        }
+        return VeyraThemePresets.byId(id)
     }
 
     fun savePreset(context: Context, config: VeyraThemeConfig) {
@@ -25,6 +26,7 @@ object VeyraThemeStore {
             .getSharedPreferences(PREFS, Context.MODE_PRIVATE)
             .edit()
             .putString(KEY_THEME_ID, config.id)
+            .remove(KEY_CUSTOM_CONFIG)
             .apply()
     }
 
