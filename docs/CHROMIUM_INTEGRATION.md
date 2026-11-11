@@ -6,6 +6,21 @@ Veyra will not silently use Android WebView as its browser engine. The project r
 
 The preferred production route is to maintain a Veyra Chromium fork and adapt Chromium's Android browser embedder. The Android app in this repository is currently a Kotlin/Compose prototype; it cannot become a full Chromium embedder merely by adding a Maven dependency.
 
+## Initial Chromium version target
+
+For the first real integration, target the latest security-patched **Stable Android Chromium/Chrome 157.0.8103.50** release published by Google on 9 November 2026. Pin the exact upstream Chromium source revision corresponding to that release before beginning the native port; do not use a moving branch head.
+
+Google also published Chrome 158 as an Early Stable rollout on 5 November 2026, but the 157.0.8103.50 Android Stable update is the more conservative baseline for this integration because it is the later Stable-channel security update. Do not interpret a higher major version in an early rollout or Dev channel as automatically preferable for the initial production engine.
+
+Version policy:
+- Initial baseline: Android Stable 157.0.8103.50.
+- Keep the Chromium source revision and upstream commit SHA recorded together.
+- Before each release, check the current Android Stable channel and move to a newer security-patched Stable revision where practical.
+- Do not ship Dev, Canary, or an unpatched older revision as the production engine.
+- Record the exact Chromium revision, Android API range, supported ABIs and build configuration in the release metadata.
+
+Google's release record: https://chromereleases.googleblog.com/2026/ (Android Stable update, 9 November 2026).
+
 ## Why this is a substantial integration
 
 Chromium's Android build documentation describes a Linux x86-64 build environment, at least 8 GB RAM (more than 16 GB recommended), and at least 100 GB free disk space. It uses depot_tools, GN and Ninja. The documented Android build targets include `chrome_public_apk` and `content_shell_apk`.
@@ -25,7 +40,7 @@ These are contracts and supporting models only. There is deliberately no fake en
 
 ## Required Chromium-side work
 
-1. Pin a Chromium revision and record its upstream commit.
+1. Pin the Chromium 157.0.8103.50 source revision and record its upstream commit.
 2. Create a Veyra embedder target using Chromium's supported Android build infrastructure.
 3. Implement the engine provider and native view lifecycle, including JNI boundaries.
 4. Connect navigation, tab creation/destruction, history, permissions, downloads, cookies and renderer process events.
