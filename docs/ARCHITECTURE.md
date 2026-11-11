@@ -35,3 +35,15 @@ A translucent Compose surface is not automatically a true backdrop blur. The ini
 - Gradle wrapper (to be added after validating the project toolchain)
 
 Dependency versions are an initial baseline and should be checked against the installed Android Studio/SDK before the first local build.
+
+
+## Theme Engine — first implementation
+
+The first working Theme Engine layer now includes:
+- Four built-in presets: Glassmorphism, Minimal, Futuristic and Material You.
+- A typed theme configuration with HEX colors and glass/border opacity.
+- A Compose palette provided through a CompositionLocal, so existing UI components react to theme changes.
+- Local persistence through Android SharedPreferences.
+- A settings screen reachable from the home screen's Settings item, with live preset switching, editable primary/secondary/background HEX colors, opacity control and reset.
+
+This is an initial editor, not the final visual layout editor. Custom image/video backgrounds, per-component positioning, typography packs, drag-and-drop editing, theme import/export and community publishing remain future milestones. HEX input currently accepts six-digit RGB values in the editor.
