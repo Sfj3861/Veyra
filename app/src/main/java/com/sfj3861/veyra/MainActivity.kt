@@ -11,7 +11,6 @@ import com.sfj3861.veyra.ui.home.BrowserHome
 import com.sfj3861.veyra.ui.theme.ThemeSettingsScreen
 import com.sfj3861.veyra.ui.theme.VeyraTheme
 import com.sfj3861.veyra.ui.theme.VeyraThemeConfig
-import com.sfj3861.veyra.ui.theme.VeyraThemePresets
 import com.sfj3861.veyra.ui.theme.VeyraThemeStore
 
 class MainActivity : ComponentActivity() {
