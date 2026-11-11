@@ -35,7 +35,7 @@
 
 ## Not implemented yet
 
-- Chromium integration and real webpage navigation (engine contracts are present; native Chromium provider is not yet implemented).
+- Real webpage rendering through Chromium (engine contracts, tab/session coordinator and address resolver exist; native Chromium provider is not yet implemented).
 - Tab lifecycle and session restoration.
 - Ad/tracker filtering engine.
 - Theme editor, theme import/export and community Workshop.
@@ -72,4 +72,4 @@ This is an early foundation. Theme export/import, image and video backgrounds, p
 
 ## Chromium integration status
 
-The repository now contains the browser-engine contract and address-input resolver, plus a technical decision record for the genuine Chromium integration route. **The Chromium engine itself is not yet embedded or operational.** The chosen route is a Veyra Chromium fork/native embedder, not a WebView substitution. See [docs/CHROMIUM_INTEGRATION.md](docs/CHROMIUM_INTEGRATION.md).
+The repository now contains the browser-engine contract, tab/session coordinator and address-input resolver, plus a technical decision record for the genuine Chromium integration route. **The Chromium engine itself is not yet embedded or operational.** The chosen route is a Veyra Chromium fork/native embedder, not a WebView substitution. See [docs/CHROMIUM_INTEGRATION.md](docs/CHROMIUM_INTEGRATION.md).
